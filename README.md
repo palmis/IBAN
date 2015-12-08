@@ -3,6 +3,10 @@
 IBAN creator and validator in Elixir.
 Should be fun and hopefully useful.
 
+## Resources
+* [Wiki](https://en.wikipedia.org/wiki/International_Bank_Account_Number)
+* [Styleguide](http://elixir.community/styleguide)
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
