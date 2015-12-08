@@ -1,5 +1,7 @@
 # IBAN
 
+[![Join the chat at https://gitter.im/palmis/IBAN](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/palmis/IBAN?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 IBAN creator and validator in Elixir.
 Should be fun and hopefully useful.
 
