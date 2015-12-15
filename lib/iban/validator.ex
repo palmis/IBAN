@@ -1,37 +1,117 @@
-defmodule Validator do
+defmodule IBAN.Validator do
   @moduledoc """
-  Placehold for validation test
+  Validate IBAN
   """
+
+  @doc """
+  Validate a IBAN
   
+  Returns `:valid` or `:invalid`
+  
+  ## Examples
+  
+  A valid IBAN:
+  
+      iex> IBAN.Validator.validate("GB82WEST12345698765432")
+      :valid
+  
+  An invalid IBAN:
+  
+      iex> IBAN.Validator.validate("LI1008801000020176306")
+      :invalid
+    
+  """  
   def validate(iban) do
-    {country_code, _} = String.split_at(iban, 2) # have fun that kills process if issue, let it die
-    length = Parser.length(country_code) # have fun that kills process if issue, let it die
+    iban
+    |> verify_length
+    |> rearrange
+    |> convert_to_integer
+    |> compute_remainder
+  end
+  
+  @doc """
+  Check that the total IBAN length is correct as per the country. If not, the IBAN is invalid
+  
+  Returns the iban` if length is correct, else returns `:invalid`
+  """
+  def verify_length(iban) do
+    {country_code, _} = String.split_at(iban, 2)
+    length = IBAN.Facts.iban_length(country_code)
     case length == String.length(iban) do
       true ->
-        {front, back} = String.split_at(iban, 4) # have fun that kills process if issue, let it die
-        next_phase = back <> front # be part of fun in line above
+        iban
       false ->
-        {:invalid}
+        :invalid
     end
   end
   
   @doc """
-  Testing some options for getting strings to number.
-  Ex.
-    W E S T12345698765432 G B82	 -> 3214282912345698765432161182
-    W E S T -> 32142829
-    G B -> 1611
+  Move the four initial characters of the IBAN to the end of the string
+  
+  Returns rearranged `iban` or `:invalid` 
   """
-  def nuberfy(text) do
-    
+  def rearrange(:invalid), do: :invalid
+  def rearrange(iban) do
+    {front, back} = String.split_at(iban, 4) # have fun that kills process if issue, let it die
+    back <> front
   end
   
-  def nuberfy([head|tail], new_list) do
-    # String.codepoints("GB")
-    # List.to_integer(String.to_char_list("GB"), 28)
+  @doc """
+  Replace each letter in the string with two digits, thereby expanding the string, where A = 10, B = 11, ..., Z = 35
+  
+  Returns `string` with only numbers or `:invalid`
+  
+  ## Examples
+  
+      iex> IBAN.Validator._convert_to_integer("BG")
+      1611
+      
+      iex> IBAN.Validator._convert_to_integer("WEST")
+      32142829
+      
+      iex> IBAN.Validator._convert_to_integer(:invalid)
+      :invalid
+  """
+  def convert_to_integer(:invalid), do: :invalid
+  def convert_to_integer(string) do
+    numberfy_string(string, "")
   end
   
-  def djok do
-    case 2 = 1 do
+  def numberfy_string(string, number_string) do
+    case String.length(string) do
+      0 ->
+        number_string
+      _ ->
+        {head, tail} = String.split_at(string, 1)
+        number = 
+          head
+          |> String.upcase
+          |> IBAN.Facts.alphabet_number
+          |> Integer.to_string
+        new_number_string = number_string <> number
+        numberfy_string(tail, new_number_string)
+    end
   end
+  
+  @doc """
+  Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
+  If the remainder is 1, the check digit test is passed and the IBAN might be valid.
+  
+  Returns `:valid` or `:invalid`
+  """
+  def compute_remainder(:invalid), do: :invalid
+  def compute_remainder(numberfied_string) do
+    reminder =
+          numberfied_string
+          |> String.to_integer
+          |> rem 97
+        
+    case reminder == 1 do
+      true -> 
+        :valid
+      false ->
+        :invalid
+    end
+  end
+  
 end
