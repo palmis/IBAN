@@ -23,10 +23,10 @@ defmodule IBAN.Validator do
   """  
   def validate(iban) do
     iban
-    |> _verify_length
-    |> _rearrange
-    |> _convert_to_integer
-    |> _compute_remainder
+    |> verify_length
+    |> rearrange
+    |> convert_to_integer
+    |> compute_remainder
   end
   
   @doc """
@@ -34,7 +34,7 @@ defmodule IBAN.Validator do
   
   Returns the iban` if length is correct, else returns `:invalid`
   """
-  defp _verify_length(iban) do
+  def verify_length(iban) do
     {country_code, _} = String.split_at(iban, 2)
     length = IBAN.Facts.iban_length(country_code)
     case length == String.length(iban) do
@@ -50,8 +50,8 @@ defmodule IBAN.Validator do
   
   Returns rearranged `iban` or `:invalid` 
   """
-  defp _rearrange(:invalid), do: :invalid
-  defp _rearrange(iban) do
+  def rearrange(:invalid), do: :invalid
+  def rearrange(iban) do
     {front, back} = String.split_at(iban, 4) # have fun that kills process if issue, let it die
     back <> front
   end
@@ -72,12 +72,12 @@ defmodule IBAN.Validator do
       iex> IBAN.Validator._convert_to_integer(:invalid)
       :invalid
   """
-  defp _convert_to_integer(:invalid), do: :invalid
-  defp _convert_to_integer(string) do
-    _numberfy_string(string, "")
+  def convert_to_integer(:invalid), do: :invalid
+  def convert_to_integer(string) do
+    numberfy_string(string, "")
   end
   
-  defp _numberfy_string(string, number_string) do
+  def numberfy_string(string, number_string) do
     case String.length(string) do
       0 ->
         number_string
@@ -89,7 +89,7 @@ defmodule IBAN.Validator do
           |> IBAN.Facts.alphabet_number
           |> Integer.to_string
         new_number_string = number_string <> number
-        _numberfy_string(tail, new_number_string)
+        numberfy_string(tail, new_number_string)
     end
   end
   
@@ -99,8 +99,8 @@ defmodule IBAN.Validator do
   
   Returns `:valid` or `:invalid`
   """
-  defp _compute_remainder(:invalid), do: :invalid
-  defp _compute_remainder(numberfied_string) do
+  def compute_remainder(:invalid), do: :invalid
+  def compute_remainder(numberfied_string) do
     reminder =
           numberfied_string
           |> String.to_integer
