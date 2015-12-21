@@ -7,6 +7,7 @@ Should be fun and hopefully useful.
 
 ## Resources
 * [Wiki](https://en.wikipedia.org/wiki/International_Bank_Account_Number)
+* [European committee for banking standards](http://www.ecbs.org/iban.htm)
 * [Styleguide](http://elixir.community/styleguide)
 
 ## Installation
