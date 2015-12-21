@@ -7,6 +7,11 @@ defmodule IBANTest do
     assert result == :valid
   end
   
+  test "gb82WEST12345698765432 is valid" do
+    result = IBAN.Validator.validate("gb82WEST12345698765432")
+    assert result == :valid
+  end
+  
   test "BR7724891749412660603618210F3 is valid" do
     result = IBAN.Validator.validate("BR7724891749412660603618210F3")
     assert result == :valid
@@ -34,6 +39,16 @@ defmodule IBANTest do
   
   test "LI1008801000020176306 is not valid" do
     result = IBAN.Validator.validate("LI1008801000020176306")
+    assert result == :invalid
+  end
+  
+  test "Exception 6482WEST12345698765432 in country lookup is invalid" do
+    result = IBAN.Validator.validate("6482WEST12345698765432")
+    assert result == :invalid
+  end
+  
+  test "Exception GB82*EST12345698765432 in convert to integer is invalid" do
+    result = IBAN.Validator.validate("GB82*EST12345698765432")
     assert result == :invalid
   end
   
