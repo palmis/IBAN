@@ -25,6 +25,7 @@ defmodule IBAN.Validator do
     try do
       iban
       |> String.upcase
+      |> String.replace(" ", "")
       |> _verify_length
       |> _rearrange
       |> _convert_to_integer
