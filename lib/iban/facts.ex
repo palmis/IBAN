@@ -74,6 +74,21 @@ defmodule IBAN.Facts do
   def iban_length("AE"), do: 23
   def iban_length("GB"), do: 22
   def iban_length("VG"), do: 24
+  def iban_length("LC"), do: 32
+  def iban_length("ST"), do: 25
+  def iban_length("AX"), do: 18
+  def iban_length("GF"), do: 27
+  def iban_length("GP"), do: 27
+  def iban_length("MQ"), do: 27
+  def iban_length("RE"), do: 27
+  def iban_length("PF"), do: 27
+  def iban_length("TF"), do: 27
+  def iban_length("YT"), do: 27
+  def iban_length("NC"), do: 27
+  def iban_length("BL"), do: 27
+  def iban_length("MF"), do: 27
+  def iban_length("PM"), do: 27
+  def iban_length("WF"), do: 27
 
   ## Nordea catalogued IBANs   
   def iban_length("DZ"), do: 24

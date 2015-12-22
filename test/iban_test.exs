@@ -83,7 +83,7 @@ defmodule IBANTest do
   end
 
   test "Andorra AD1200012030200359100100 is valid" do
-    result = IBAN.Validator.validate("")
+    result = IBAN.Validator.validate("AD1200012030200359100100")
     assert result == :valid
   end
 
@@ -1998,7 +1998,7 @@ defmodule IBANTest do
   end
 
   test "Qatar QA58DOHB00001234567890ABCDEFG is valid" do
-    result = IBAN.Validator.validate("")
+    result = IBAN.Validator.validate("QA58DOHB00001234567890ABCDEFG")
     assert result == :valid
   end
 
@@ -2448,7 +2448,7 @@ defmodule IBANTest do
   end
 
   test "Switzerland CH9300762011623852957 is valid" do
-    result = IBAN.Validator.validate("")
+    result = IBAN.Validator.validate("CH9300762011623852957")
     assert result == :valid
   end
 
@@ -2582,8 +2582,8 @@ defmodule IBANTest do
     assert resuLithuania == :valid
   end
 
-  test "United Kingdom GB29 RBOS 6016 1331 9268 19 is valid" do
-    result = IBAN.Validator.validate("GB29 RBOS 6016 1331 9268 19")
+  test "United Kingdom GB86 RBOS 6016 1331 9268 19 is valid" do
+    result = IBAN.Validator.validate("GB86 RBOS 6016 1331 9268 19")
     assert result == :valid
   end
 
