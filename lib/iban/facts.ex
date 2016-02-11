@@ -38,7 +38,7 @@ defmodule IBAN.Facts do
   def iban_length("IL"), do: 23
   def iban_length("IT"), do: 27
   def iban_length("JO"), do: 30
-  def iban_length("KZ"), do: 30
+  def iban_length("KZ"), do: 20
   def iban_length("XK"), do: 20
   def iban_length("KW"), do: 30
   def iban_length("LV"), do: 21
@@ -74,6 +74,37 @@ defmodule IBAN.Facts do
   def iban_length("AE"), do: 23
   def iban_length("GB"), do: 22
   def iban_length("VG"), do: 24
+  def iban_length("LC"), do: 32
+  def iban_length("ST"), do: 25
+  def iban_length("AX"), do: 18
+  def iban_length("GF"), do: 27
+  def iban_length("GP"), do: 27
+  def iban_length("MQ"), do: 27
+  def iban_length("RE"), do: 27
+  def iban_length("PF"), do: 27
+  def iban_length("TF"), do: 27
+  def iban_length("YT"), do: 27
+  def iban_length("NC"), do: 27
+  def iban_length("BL"), do: 27
+  def iban_length("MF"), do: 27
+  def iban_length("PM"), do: 27
+  def iban_length("WF"), do: 27
+
+  ## Nordea catalogued IBANs   
+  def iban_length("DZ"), do: 24
+  def iban_length("AO"), do: 25
+  def iban_length("BJ"), do: 28
+  def iban_length("BF"), do: 27
+  def iban_length("BI"), do: 16
+  def iban_length("CM"), do: 27
+  def iban_length("CV"), do: 25
+  def iban_length("IR"), do: 26
+  def iban_length("CI"), do: 28
+  def iban_length("MG"), do: 27
+  def iban_length("ML"), do: 28
+  def iban_length("MZ"), do: 25
+  def iban_length("SN"), do: 28
+  def iban_length("UA"), do: 29
   
   @doc """
   Number representation of an alphabet character
